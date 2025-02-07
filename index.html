@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>javascript</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+  <div class=" h-screen flex justify-center items-center  ">
+    <!-- inner -->
+    <div class="max-sm:pb-9  max-sm:mt-9 px-6 ">
+      <div
+       id="boxes" draggable="true" class="  overflow-hidden p-4 border-dashed border-2 border-[#155E95] bg-[ghostwhite] m-auto  cursor-pointer grid grid-cols-3  ">
+        
+       <!-- first -->
+        <div id="box" class="dragging " draggable="true">
+          <h1 class="text-4xl  max-sm:text-3xl max-sm:w-20 max-sm:h-20  flex items-center justify-center w-32 h-32  bg-emerald-100">1</h1>
+        </div>
+        <!-- second -->
+        <div>
+      <div id="box" class="dragging    " draggable="true">
+            <h1 id="name" class="text-4xl max-sm:text-3xl max-sm:w-20 max-sm:h-20 bg-slate-600  w-32 h-32 flex items-center justify-center ">2</h1>
+          </div>
+        </div>
+        <!-- third -->
+        <div id="box" class="dragging  " draggable="true">
+          <h1 id="name" class="text-4xl max-sm:w-20 max-sm:h-20 max-sm:text-3xl bg-lime-900  w-32 h-32 flex items-center justify-center ">3</h1>
+        </div>
+        <!-- four -->
+        <div id="box" class="dragging " draggable="true">
+          <h1 class="text-4xl  max-sm:text-3xl max-sm:w-20 max-sm:h-20 items-center justify-center  bg-red-200 flex w-32 h-32">4</h1>
+        </div>
+        <!-- five -->
+        <div id="box" class="dragging " draggable="true">
+          <h1 class="text-4xl m-auto max-sm:text-3xl max-sm:w-20 max-sm:h-20 items-center justify-center   bg-cyan-700 flex w-32 h-32">5</h1>
+        </div>
+        <!-- six -->
+        <div id="box" class="dragging  " draggable="true">
+          <h1 class="text-4xl m-auto max-sm:text-3xl max-sm:w-20 max-sm:h-20 bg-cyan-950 flex w-32 h-32 items-center justify-center">6</h1>
+        </div>
+        <!-- seven -->
+        <div id="box" class="dragging  " draggable="true">
+          <h1 class="text-4xl  max-sm:w-20 max-sm:h-20 items-center justify-center m-auto max-sm:text-3xl bg-zinc-500 flex w-32 h-32 ">7</h1>
+        </div>
+        <!-- eight -->
+        <div id="box" class="dragging  " draggable="true">
+          <h1 class="text-4xl items-center max-sm:w-20 max-sm:h-20 bg-purple-900 flex w-32 h-32 justify-center max-sm:text-3xl">8</h1>
+        </div>
+        <!-- nine -->
+        <div id="box" class="dragging" draggable="true">
+          <h1 class="text-4xl m-auto max-sm:text-3xl justify-center  items-center bg-lime-400 flex w-32 h-32 max-sm:w-20 max-sm:h-20">9</h1>
+        </div>
+        <!--  end-->
+      </div>
+      <button type="button"
+       id="Click" class="bg-pink-300 flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight "
+        onclick="handelClick()">Shuffle
+      </button>
+    </div>    
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
