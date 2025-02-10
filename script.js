@@ -1,83 +1,5 @@
 document.body.style.background = "#C6E7FF";
 
-// let whiteboxes = document.querySelectorAll('.whitebox');
-
-
-// whiteboxes.forEach(boxes => {
-//     boxes.addEventListener('dragstart', function (e) {
-//         draggedElement = e.target;
-//         setTimeout(() => {
-//         }, 0);
-//     });
-
-//     box.addEventListener('dragend', function (e) {
-//         e.target.classList.remove('hide'); 
-//     });
-// });
-
-// whiteboxes.forEach(whitebox => {
-//     whitebox.addEventListener('dragover', (e) => {
-//         e.preventDefault(); 
-//     });
-
-//     whitebox.addEventListener('drop', (e) => {
-//         e.preventDefault(); 
-
-//         if (draggedElement && e.target.classList.contains("whitebox")) {
-//             e.target.parentNode.insertBefore(draggedElement, e.target);
-//         }
-//     });
-// });
-// first function ha
-
-// const boxes = document.querySelectorAll('#box');
-// const draggingClass = 'dragging';
-// let draggedElement;
-
-// boxes.forEach(box => {
-//   box.addEventListener('dragstart', onDragStart);
-//   box.addEventListener('dragenter', onDragEnter);
-//   box.addEventListener('dragover', onDragOver);
-//   box.addEventListener('dragleave', onDragLeave);
-//   box.addEventListener('drop', onDrop);
-//   box.addEventListener('dragend', onDragEnd);
-// });
-
-// function onDragStart(event) {
-//   draggedElement = this;
-//   event.target.classList.add(draggingClass);
-//   event.dataTransfer.effectAllowed = 'move';
-//   event.dataTransfer.setData('text/html', this.innerHTML);
-// }
-
-// function onDragOver(event) {
-//   event.preventDefault(); 
-//   event.dataTransfer.dropEffect = 'move';
-// }
-
-// function onDragEnter() {
-//   this.classList.add('over');
-// }
-
-// function onDragLeave() {
-//   this.classList.remove('over');
-// }
-
-// function onDrop(event) {
-//   event.preventDefault();
-  
-//   if (draggedElement !== this) {
-//     const tempContent = this.innerHTML;
-//     this.innerHTML = event.dataTransfer.getData('text/html');
-//     draggedElement.innerHTML = tempContent;
-//   }
-// }
-
-// function onDragEnd() {
-//   boxes.forEach(box => box.classList.remove('over', draggingClass));
-// }
-
-
 var columns = document.querySelectorAll('#box');
 var draggingClass = 'dragging';
 var dragSource;
@@ -141,12 +63,13 @@ function handelClick()  {
                 boxes.appendChild(boxes.children[Math.random() * i | 0]);
             }
         });
+
+        // for border bottom
         const black = Math.floor(Math.random() * 250);
         const indigo = Math.floor(Math.random() * 250);
         const pink = Math.floor(Math.random() * 240);
-    
-          document.getElementById("boxes").style.borderBottomColor = "rgb(" + black + ", " + indigo + ", " + pink + ")";
-
+        document.getElementById("boxes").style.borderBottomColor = "rgb(" + black + ", " + indigo + ", " + pink + ")";
+      
         // for border top 
         const purple = Math.floor(Math.random() * 230);
         const blue = Math.floor(Math.random() * 250);
@@ -169,8 +92,49 @@ function handelClick()  {
     }
 }
 
-  
-// const para = document.getElementById("para")
-// function handelChange() {
-// para.innerHTML = "good"
-// }
+
+function Click() {
+  document.getElementById("modal").style.display = "none";       
+document.getElementById("time").appendChild = ("time");
+const countDownDuration = 22000; // 
+  const countDownElement = document.getElementById("time");
+  const endTime = Date.now() + countDownDuration;
+//  counter second
+  function updateCountdown() {
+    const now = Date.now();
+  const remainingTime = endTime - now;
+  const seconds = Math.floor((remainingTime % (1000 * 23)) / 1000);
+  countDownElement.textContent = `${seconds}s`;
+  // loop condition
+  if (remainingTime <= 0) {
+    clearInterval(countdownInterval);
+// forr stop all the function when time is over and module show
+    stopAllOtherFunctions();
+      function stopAllOtherFunctions() {
+        Array.prototype.forEach.call(columns, function (col) {
+          col.removeEventListener('dragstart', handleDragStart, false);
+          col.removeEventListener('dragenter', handleDragEnter, false);
+          col.removeEventListener('dragover', handleDragOver, false);
+          col.removeEventListener('dragleave', handleDragLeave, false);
+          col.removeEventListener('drop', handleDrop, false);
+          col.removeEventListener('dragend', handleDragEnd, false);       
+        });
+      }       
+document.getElementById("modal").style.display = "flex";
+}
+}
+// is ka abi pata nhi ha
+const countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+// next function jab modal show ho cancel krny ka lea 
+function handelClose(){
+document.getElementById("modal").style.display = "none";
+// time set  for show seconds
+setTimeout(function() {
+  document.getElementById("time").innerHTML = "";
+  location.reload();
+},10);
+}
+
+
