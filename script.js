@@ -54,6 +54,7 @@ function handleDragEnd (_evt) {
 
 // second function on clickfunction
 function handelClick()  {
+  isRunning = true;
     const button = document.querySelector("#Click");
     const boxes = document.querySelector("#boxes");
     
@@ -63,6 +64,7 @@ function handelClick()  {
                 boxes.appendChild(boxes.children[Math.random() * i | 0]);
             }
         });
+
 
         // for border bottom
         const black = Math.floor(Math.random() * 250);
@@ -92,41 +94,46 @@ function handelClick()  {
     }
 }
 
-
+document.getElementById("modal").style.display = "none";       
 function Click() {
-  document.getElementById("modal").style.display = "none";       
-document.getElementById("time").appendChild = ("time");
-const countDownDuration = 22000; // 
+const countDownDuration = 22000;
   const countDownElement = document.getElementById("time");
-  const endTime = Date.now() + countDownDuration;
-//  counter second
+  const Time = Date.now() + countDownDuration;
+  isRunning = true;
+  //  counter second
   function updateCountdown() {
     const now = Date.now();
-  const remainingTime = endTime - now;
+  const remainingTime = Time - now;
   const seconds = Math.floor((remainingTime % (1000 * 23)) / 1000);
-  countDownElement.textContent = `${seconds}s`;
+  countDownElement.textContent = `${seconds} seconds`;
+  
   // loop condition
-  if (remainingTime <= 0) {
+  if (!isRunning) {
+    isRunning = false;
     clearInterval(countdownInterval);
-// forr stop all the function when time is over and module show
+    // for stop all the function when time is over and module show
     stopAllOtherFunctions();
-      function stopAllOtherFunctions() {
-        Array.prototype.forEach.call(columns, function (col) {
-          col.removeEventListener('dragstart', handleDragStart, false);
-          col.removeEventListener('dragenter', handleDragEnter, false);
-          col.removeEventListener('dragover', handleDragOver, false);
-          col.removeEventListener('dragleave', handleDragLeave, false);
-          col.removeEventListener('drop', handleDrop, false);
-          col.removeEventListener('dragend', handleDragEnd, false);       
-        });
-      }       
-document.getElementById("modal").style.display = "flex";
+    function stopAllOtherFunctions() {  
+      Array.prototype.forEach.call(columns, function (col) {
+        col.removeEventListener('dragstart', handleDragStart, false);
+        col.removeEventListener('dragenter', handleDragEnter, false);
+        col.removeEventListener('dragover', handleDragOver, false);
+        col.removeEventListener('dragleave', handleDragLeave, false);
+        col.removeEventListener('drop', handleDrop, false);
+        col.removeEventListener('dragend', handleDragEnd, false);      
+        document.getElementById("Click").disabled = true;
+      });
+}   
+  }
+  if (remainingTime <= 2 ) {
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("countdown").disabled = true;
+    clearInterval(countdownInterval);
+    document.getElementById("Click").disabled = true;
 }
 }
-// is ka abi pata nhi ha
 const countdownInterval = setInterval(updateCountdown, 1000);
 }
-
 // next function jab modal show ho cancel krny ka lea 
 function handelClose(){
 document.getElementById("modal").style.display = "none";
@@ -136,5 +143,10 @@ setTimeout(function() {
   location.reload();
 },10);
 }
-
-
+const btnStopElement = document.getElementById("time");
+function ClearInterval() {
+  if(ClearInterval != false){
+isRunning = false;
+}
+btnStopElement.addEventListener('click', ClearInterval);
+}

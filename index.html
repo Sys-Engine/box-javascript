@@ -61,16 +61,16 @@
       </div>
       <button type="button"
        id="Click" class="bg-pink-300 flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight "
-        onclick="handelClick,handelClick()">Shuffle
+        onclick="handelClick()">Shuffle
       </button>
      <div  class="flex" >
       <button
       id="countdown" class="bg-pink-300 flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight"
       onclick="Click()">start
     </button>
-    <button id="stop" class="bg-pink-300  flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight" onclick="clearInterval(stop)">Stop</button>
+    <p id="time" class="flex justify-center items-center text-2xl mt-4" ></p>  
+    <button id="stop" class="bg-pink-300  flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight" onclick="ClearInterval()">Stop</button>
   </div>
-  <p id="time" class="flex justify-center items-center text-2xl mt-4" ></p>  
     </div>    
   </div>
 
@@ -79,10 +79,6 @@
     <ion-icon  class="cursor-pointer bg-black text-white  hover:bg-black hover:text-white  -right-3 absolute  -top-3 hover:opacity-65 transition-all duration-300 rounded-[9999px]  justify-end " name="close-outline" onclick="handelClose()"></ion-icon>
   </div>
   
- 
-  
- 
-
   <script src="script.js"></script>
 </body>
 
