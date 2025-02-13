@@ -93,39 +93,42 @@ function handelClick()  {
             document.getElementById("boxes").style.borderRightColor = "rgb(" + white + ", " + redd + ", " + green + ")";
     }
 }
-
 document.getElementById("modal").style.display = "none";       
 function Click() {
 const countDownDuration = 22000;
   const countDownElement = document.getElementById("time");
   const Time = Date.now() + countDownDuration;
   isRunning = true;
+  document.getElementById("Click").disabled = false;
+  for (var i = boxes.children.length; i >= 0; i--) {
+    boxes.appendChild(boxes.children[Math.random() * i | 0]);
+}
+// for second time when we clcick on buttobn
+Array.prototype.forEach.call(columns, function (col) {
+  col.addEventListener('dragstart', handleDragStart, false);
+  col.addEventListener('dragenter', handleDragEnter, false)
+  col.addEventListener('dragover', handleDragOver, false);
+  col.addEventListener('dragleave', handleDragLeave, false);
+  col.addEventListener('drop', handleDrop, false);
+  col.addEventListener('dragend', handleDragEnd, false);
+  ['over', 'dragging'].forEach(function (className) {
+    col.classList.remove(className);
+  });
+});
   //  counter second
   function updateCountdown() {
     const now = Date.now();
   const remainingTime = Time - now;
-  const seconds = Math.floor((remainingTime % (1000 * 23)) / 1000);
+  const seconds = Math.max(0, Math.floor(remainingTime / 1000));
   countDownElement.textContent = `${seconds} seconds`;
-  
   // loop condition
   if (!isRunning) {
     isRunning = false;
     clearInterval(countdownInterval);
     // for stop all the function when time is over and module show
     stopAllOtherFunctions();
-    function stopAllOtherFunctions() {  
-      Array.prototype.forEach.call(columns, function (col) {
-        col.removeEventListener('dragstart', handleDragStart, false);
-        col.removeEventListener('dragenter', handleDragEnter, false);
-        col.removeEventListener('dragover', handleDragOver, false);
-        col.removeEventListener('dragleave', handleDragLeave, false);
-        col.removeEventListener('drop', handleDrop, false);
-        col.removeEventListener('dragend', handleDragEnd, false);      
-        document.getElementById("Click").disabled = true;
-      });
-}   
   }
-  if (remainingTime <= 2 ) {
+  if (remainingTime <= 0 ) {
     document.getElementById("modal").style.display = "flex";
     document.getElementById("countdown").disabled = true;
     clearInterval(countdownInterval);
@@ -134,6 +137,17 @@ const countDownDuration = 22000;
 }
 const countdownInterval = setInterval(updateCountdown, 1000);
 }
+function stopAllOtherFunctions() {  
+  Array.prototype.forEach.call(columns, function (col) {
+    col.removeEventListener('dragstart', handleDragStart, false);
+    col.removeEventListener('dragenter', handleDragEnter, false);
+    col.removeEventListener('dragover', handleDragOver, false);
+    col.removeEventListener('dragleave', handleDragLeave, false);
+    col.removeEventListener('drop', handleDrop, false);
+    col.removeEventListener('dragend', handleDragEnd, false);      
+    document.getElementById("Click").disabled = true;
+  });
+} 
 // next function jab modal show ho cancel krny ka lea 
 function handelClose(){
 document.getElementById("modal").style.display = "none";
