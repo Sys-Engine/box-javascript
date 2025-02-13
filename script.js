@@ -54,9 +54,37 @@ function handleDragEnd (_evt) {
       col.classList.remove(className);
     });
   });
+  let touchStartElement;
+
+  columns.forEach(function (col) {
+    col.addEventListener("touchstart", function (evt) {
+      touchStartElement = this;
+      evt.target.classList.add(draggingClass);
+    });
+
+    col.addEventListener("touchmove", function (evt) {
+      evt.preventDefault();
+      let touch = evt.touches[0];
+      let target = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (target && target.classList.contains("box")) {
+        target.classList.add("over");
+      }
+    });
+
+    col.addEventListener("touchend", function (evt) {
+      let touch = evt.changedTouches[0];
+      let target = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (target && target.classList.contains("box") && touchStartElement !== target) {
+        let temp = touchStartElement.innerHTML;
+        touchStartElement.innerHTML = target.innerHTML;
+        target.innerHTML = temp;
+      }
+      columns.forEach(col => col.classList.remove("over", "dragging"));
+    });
+  });
+};
 
 
-}
 
 // second function on clickfunction
 function handelClick()  {
@@ -102,58 +130,57 @@ function handelClick()  {
 document.getElementById("modal").style.display = "none";  
 let countdownInterval;
 let isRunning = false;
-let remainingTime = 20000; // Initial countdown time in milliseconds
+let remainingTime = 20000; 
 let endTime;
+let disabled = false;
+// function Click() {
 
-function Click() {
-  const countDownElement = document.getElementById("time");
+  
+//   const countDownElement = document.getElementById("time");
+//   if (isRunning) return;
+  
+  
+//   endTime = Date.now() + remainingTime;
+//   isRunning = true;
 
-  // If already running, prevent resetting the timer
-  if (isRunning) return;
+//   document.getElementById("Click").disabled = false;
+  
+//   for (var i = boxes.children.length; i >= 0; i--) {
+//     boxes.appendChild(boxes.children[Math.random() * i | 0]);
+//   }
 
-  // If resuming, adjust the end time
-  endTime = Date.now() + remainingTime;
-  isRunning = true;
+//   Array.prototype.forEach.call(columns, function (col) {
+//     col.addEventListener("dragstart", handleDragStart, false);
+//     col.addEventListener("dragenter", handleDragEnter, false);
+//     col.addEventListener("dragover", handleDragOver, false);
+//     col.addEventListener("dragleave", handleDragLeave, false);
+//     col.addEventListener("drop", handleDrop, false);
+//     col.addEventListener("dragend", handleDragEnd, false);
+//     ["over", "dragging"].forEach(function (className) {
+//       col.classList.remove(className);
+//     });
+//   });
+  
+//   function updateCountdown() {
+//     const now = Date.now();
+//     remainingTime = Math.max(0, endTime - now);
+//     const seconds = Math.floor(remainingTime / 1000);
+//     countDownElement.textContent = `${seconds} sec`;
+    
+//     if (remainingTime <= 0) {
+//       isRunning = false;
+//       clearInterval(countdownInterval);
+//       document.getElementById("modal").style.display = "flex";
+//       document.getElementById("Click").disabled = true;
+//     }
+//   }
+  
+//   countdownInterval = setInterval(updateCountdown, 1000);
+// }
 
-  document.getElementById("Click").disabled = false;
-
-  for (var i = boxes.children.length; i >= 0; i--) {
-    boxes.appendChild(boxes.children[Math.random() * i | 0]);
-  }
-
-  Array.prototype.forEach.call(columns, function (col) {
-    col.addEventListener("dragstart", handleDragStart, false);
-    col.addEventListener("dragenter", handleDragEnter, false);
-    col.addEventListener("dragover", handleDragOver, false);
-    col.addEventListener("dragleave", handleDragLeave, false);
-    col.addEventListener("drop", handleDrop, false);
-    col.addEventListener("dragend", handleDragEnd, false);
-    ["over", "dragging"].forEach(function (className) {
-      col.classList.remove(className);
-    });
-  });
-
-  function updateCountdown() {
-    const now = Date.now();
-    remainingTime = Math.max(0, endTime - now); // Update remaining time
-    const seconds = Math.floor(remainingTime / 1000);
-    countDownElement.textContent = `${seconds} sec`;
-
-    if (remainingTime <= 0) {
-      isRunning = false;
-      clearInterval(countdownInterval);
-      document.getElementById("modal").style.display = "flex";
-      document.getElementById("Click").disabled = true;
-    }
-  }
-
-  countdownInterval = setInterval(updateCountdown, 1000);
-}
-
-// Function to pause the countdown when stopping
 function stopCountdown() {
   isRunning = false;
-  clearInterval(countdownInterval); // Stop updating the timer
+  clearInterval(countdownInterval); 
 }
 
 // Function to stop all interactions when time runs out
@@ -168,6 +195,7 @@ function stopAllOtherFunctions() {
     document.getElementById("Click").disabled = true;
   });
 }
+const startButton = getElementById("countdown");
  function Click() {
  const countDownDuration = 22000;
   const countDownElement = document.getElementById("time");
@@ -176,20 +204,19 @@ function stopAllOtherFunctions() {
   document.getElementById("Click").disabled = false;
   for (var i = boxes.children.length; i >= 0; i--) {
     boxes.appendChild(boxes.children[Math.random() * i | 0]);
- }
- // for second time when we clcick on buttobn
- Array.prototype.forEach.call(columns, function (col) {
-  col.addEventListener('dragstart', handleDragStart, false);
-  col.addEventListener('dragenter', handleDragEnter, false)
-  col.addEventListener('dragover', handleDragOver, false);
-  col.addEventListener('dragleave', handleDragLeave, false);
-  col.addEventListener('drop', handleDrop, false);
-  col.addEventListener('dragend', handleDragEnd, false);
-  ['over', 'dragging'].forEach(function (className) {
+  }
+  Array.prototype.forEach.call(columns, function (col) {
+    col.addEventListener('dragstart', handleDragStart, false);
+    col.addEventListener('dragenter', handleDragEnter, false)
+    col.addEventListener('dragover', handleDragOver, false);
+    col.addEventListener('dragleave', handleDragLeave, false);
+    col.addEventListener('drop', handleDrop, false);
+    col.addEventListener('dragend', handleDragEnd, false);
+    ['over', 'dragging'].forEach(function (className) {
     col.classList.remove(className);
   });
  });
-  //  counter second
+
   function updateCountdown() {
     const now = Date.now();
     const remainingTime = Time - now;
@@ -202,16 +229,15 @@ function stopAllOtherFunctions() {
       document.getElementById("modal").style.display = "flex";
       document.getElementById("Click").disabled = true;
     }
-  // loop condition
+
   if (!isRunning) {
     isRunning = false;
     clearInterval(countdownInterval);
-    // for stop all the function when time is over and module show
+
     stopAllOtherFunctions();
   }
-//     check
+
     
- 
 
   if (remainingTime <= 0 ) {
     document.getElementById("modal").style.display = "flex";
