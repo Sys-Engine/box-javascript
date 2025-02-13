@@ -1,85 +1,63 @@
 
 document.body.style.background = "#C6E7FF";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const columns = document.querySelectorAll("#box");
-  let dragSource = null;
+var columns = document.querySelectorAll('#box');
+var draggingClass = 'box';
+var dragSource;
 
-  columns.forEach((col) => {
-    col.setAttribute("draggable", true);
-    col.addEventListener("dragstart", handleDragStart, false);
-    col.addEventListener("dragover", handleDragOver, false);
-    col.addEventListener("dragenter", handleDragEnter, false);
-    col.addEventListener("dragleave", handleDragLeave, false);
-    col.addEventListener("drop", handleDrop, false);
-    col.addEventListener("dragend", handleDragEnd, false);
-  });
+Array.prototype.forEach.call(columns, function (col) {
+  col.addEventListener('dragstart', handleDragStart, false);
+  col.addEventListener('dragenter', handleDragEnter, false)
+  col.addEventListener('dragover', handleDragOver, false);
+  col.addEventListener('dragleave', handleDragLeave, false);
+  col.addEventListener('drop', handleDrop, false);
+  col.addEventListener('dragend', handleDragEnd, false);
 
-  function handleDragStart(evt) {
-    dragSource = this;
-    this.classList.add("dragging");
-    evt.dataTransfer.effectAllowed = "move";
-    evt.dataTransfer.setData("text/html", this.innerHTML);
-  }
 
-  function handleDragOver(evt) {
-    evt.preventDefault();
-    evt.dataTransfer.dropEffect = "move";
-  }
-
-  function handleDragEnter(evt) {
-    if (this !== dragSource) {
-      this.classList.add("over");
-    }
-  }
-
-  function handleDragLeave(evt) {
-    this.classList.remove("over");
-  }
-
-  function handleDrop(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-
-    if (dragSource !== this) {
-      [dragSource.innerHTML, this.innerHTML] = [this.innerHTML, dragSource.innerHTML];
-    }
-  }
-
-  function handleDragEnd() {
-    columns.forEach((col) => {
-      col.classList.remove("over", "dragging");
-    });
-  }
-
-  // Touch support for mobile devices
-  columns.forEach((col) => {
-    col.addEventListener("touchstart", handleTouchStart, false);
-    col.addEventListener("touchmove", handleTouchMove, false);
-    col.addEventListener("touchend", handleTouchEnd, false);
-  });
-
-  let touchStartIndex = null;
-  function handleTouchStart(evt) {
-    touchStartIndex = [...columns].indexOf(evt.target.closest(".box"));
-  }
-
-  function handleTouchMove(evt) {
-    evt.preventDefault();
-    const touch = evt.touches[0];
-    const overElement = document.elementFromPoint(touch.clientX, touch.clientY);
-    const targetBox = overElement.closest(".box");
-    
-    if (targetBox && touchStartIndex !== null && targetBox !== columns[touchStartIndex]) {
-      [columns[touchStartIndex].innerHTML, targetBox.innerHTML] = [targetBox.innerHTML, columns[touchStartIndex].innerHTML];
-      touchStartIndex = [...columns].indexOf(targetBox);
-    }
-  }
-
-  function handleTouchEnd() {
-    touchStartIndex = null;
-  }
 });
+
+function handleDragStart (evt) {
+  dragSource = this;
+  evt.target.classList.add(draggingClass);
+  evt.dataTransfer.effectAllowed = 'move';
+  evt.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function handleDragOver (evt) {
+  evt.dataTransfer.dropEffect = 'move';
+  evt.preventDefault();
+}
+
+function handleDragEnter (_evt) {
+  this.classList.add('over');
+}
+
+function handleDragLeave (_evt) {
+  this.classList.remove('over');
+}
+
+function handleDrop (evt) {
+  evt.stopPropagation();
+  
+  if (dragSource !== this) {
+    dragSource.innerHTML = this.innerHTML;
+    this.innerHTML = evt.dataTransfer.getData('text/html');
+  }
+  
+  evt.preventDefault();
+  
+}
+
+function handleDragEnd (_evt) {
+  Array.prototype.forEach.call(columns, function (col) {
+    ['over', 'dragging'].forEach(function (className) {
+      col.classList.remove(className);
+    });
+  });
+
+
+}
+
 // second function on clickfunction
 function handelClick()  {
   isRunning = true;
