@@ -88,15 +88,15 @@ function handelClick()  {
         //   border left color 
         const yellow = Math.floor(Math.random() * 255);
         const red = Math.floor(Math.random() * 255);
-        const grenn = Math.floor(Math.random() * 255);
+        const orange = Math.floor(Math.random() * 255);
     // for border right color
-          document.getElementById("boxes").style.borderLeftColor = "rgb(" + yellow + ", " + red + ", " + grenn + ")";
+          document.getElementById("boxes").style.borderLeftColor = "rgb(" + yellow + ", " + red + ", " + orange + ")";
     
           const white = Math.floor(Math.random() * 25);
-          const redd = Math.floor(Math.random() * 225);
-          const green = Math.floor(Math.random() * 200);
+          const gray = Math.floor(Math.random() * 225);
+          const voilet = Math.floor(Math.random() * 200);
       
-            document.getElementById("boxes").style.borderRightColor = "rgb(" + white + ", " + redd + ", " + green + ")";
+            document.getElementById("boxes").style.borderRightColor = "rgb(" + white + ", " + gray + ", " + voilet+ ")";
     }
 }
 document.getElementById("modal").style.display = "none";  
