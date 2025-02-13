@@ -2,7 +2,7 @@
 document.body.style.background = "#C6E7FF";
 
 document.addEventListener("DOMContentLoaded", function () {
-  const columns = document.querySelectorAll("#box .box");
+  const columns = document.querySelectorAll("#box");
   let dragSource = null;
 
   columns.forEach((col) => {
