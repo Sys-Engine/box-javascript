@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Touch support for mobile devices
   let touchStartElement;
 
   columns.forEach(function (col) {
@@ -182,19 +181,8 @@ function stopCountdown() {
 }
 
 // Function to stop all interactions when time runs out
-function stopAllOtherFunctions() {
-  Array.prototype.forEach.call(columns, function (col) {
-    col.removeEventListener("dragstart", handleDragStart, false);
-    col.removeEventListener("dragenter", handleDragEnter, false);
-    col.removeEventListener("dragover", handleDragOver, false);
-    col.removeEventListener("dragleave", handleDragLeave, false);
-    col.removeEventListener("drop", handleDrop, false);
-    col.removeEventListener("dragend", handleDragEnd, false);
-    document.getElementById("Click").disabled = true;
-  });
-}
- function Click() {
- const countDownDuration = 22000;
+function Click() {
+  const countDownDuration = 22000;
   const countDownElement = document.getElementById("time");
   const Time = Date.now() + countDownDuration;
   isRunning = true;
@@ -202,17 +190,18 @@ function stopAllOtherFunctions() {
   for (var i = boxes.children.length; i >= 0; i--) {
     boxes.appendChild(boxes.children[Math.random() * i | 0]);
   }
-  Array.prototype.forEach.call(columns, function (col) {
-    col.addEventListener('dragstart', handleDragStart, false);
-    col.addEventListener('dragenter', handleDragEnter, false)
-    col.addEventListener('dragover', handleDragOver, false);
-    col.addEventListener('dragleave', handleDragLeave, false);
-    col.addEventListener('drop', handleDrop, false);
-    col.addEventListener('dragend', handleDragEnd, false);
-    ['over', 'dragging'].forEach(function (className) {
-    col.classList.remove(className);
-  });
- });
+
+  function stopAllOtherFunctions() {
+    Array.prototype.forEach.call(columns, function (col) {
+      col.removeEventListener("dragstart", handleDragStart, false);
+      col.removeEventListener("dragenter", handleDragEnter, false);
+      col.removeEventListener("dragover", handleDragOver, false);
+      col.removeEventListener("dragleave", handleDragLeave, false);
+      col.removeEventListener("drop", handleDrop, false);
+      col.removeEventListener("dragend", handleDragEnd, false);
+      document.getElementById("Click").disabled = true;
+    });
+  }
 
   function updateCountdown() {
     const now = Date.now();
