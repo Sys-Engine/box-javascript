@@ -1,73 +1,68 @@
 document.body.style.background = "#C6E7FF";
-// first function
-// document.addEventListener("DOMContentLoaded", function () {
-//   var columns = document.querySelectorAll("#box");
-//   var dragSource;
-
-//   columns.forEach(function (col) {
-//     col.setAttribute("draggable", true);
-//     col.addEventListener("dragstart", DragStart, false);
-//     col.addEventListener("dragover", DragOver, false);
-//     col.addEventListener("drop", handleDrop, false);
-//   });
-
-//   function DragStart(evt) {
-//     dragSource = this;
-//     console.log("drag is start",this.evt);
-//     evt.dataTransfer.setData("text/plain", this.innerHTML);
-//     evt.dataTransfer.effectAllowed = "move";
-//   }
-
-//   function DragOver(evt) {
-//     console.log("search for box",this.evt);
-//     evt.preventDefault();
-//     evt.dataTransfer.effectAllowed = "move";
-//   }
-
-//   function handleDrop(evt) {
-//     console.log("box is drop",this.evt);
-//     evt.preventDefault();
-
-//     evt.stopPropagation(); {
-//       dragSource.innerHTML = this.innerHTML;
-//       this.innerHTML = evt.dataTransfer.getData("text/plain");
-//       evt.dataTransfer.effectAllowed = "move";
-//     }
-//   }
-// });
 
 document.addEventListener("DOMContentLoaded", function () {
-  var columns = document.querySelectorAll("#box"); // Use class instead of ID
-  var dragSource;
+  var boxes = document.querySelectorAll("#box");
+  var dragSource = null;
 
-  columns.forEach(function (col) {
-    col.setAttribute("draggable", true);
-    col.addEventListener("dragstart", DragStart, false);
-    col.addEventListener("dragover", DragOver, false);
-    col.addEventListener("drop", handleDrop, false);
+  
+  boxes.forEach(function (box) {
+    box.setAttribute("draggable", true);
+    box.addEventListener("dragstart", DragStart, false);
+    box.addEventListener("dragover", DragOver, false);
+    box.addEventListener("drop", handleDrop, false);
+
+    box.addEventListener("touchstart", TouchStart, false);
+    box.addEventListener("touchmove", TouchMove, false);
+    box.addEventListener("touchend", TouchEnd, false);
   });
 
+ 
   function DragStart(evt) {
     dragSource = this;
-    evt.dataTransfer.setData("text/plain", this.innerHTML); // Change "text/html" to "text/plain"
-    evt.dataTransfer.effectAllowed = "move"; // Allow move effect
+    evt.dataTransfer.setData("text/plain", this.innerHTML);
+    evt.dataTransfer.effectAllowed = "move";
   }
 
   function DragOver(evt) {
-    evt.preventDefault(); // Allow drop
+    evt.preventDefault(); 
   }
 
   function handleDrop(evt) {
     evt.preventDefault();
-    evt.stopPropagation(); // Prevent unwanted bubbling
-
-    if (dragSource !== this) { // Avoid swapping with itself
+    if (dragSource !== this) {
       let droppedData = evt.dataTransfer.getData("text/plain");
       if (droppedData) {
         dragSource.innerHTML = this.innerHTML;
         this.innerHTML = droppedData;
       }
     }
+  }
+
+  function TouchStart(_evt) {
+    dragSource = this;
+    dragSource.classList.add("dragging");
+  }
+
+  function TouchMove(evt) {
+    evt.preventDefault(); 
+
+    let touch = evt.touches[0];
+    let targetBox = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (targetBox && targetBox.id === "box" && targetBox !== dragSource) {
+      swapElements(dragSource, targetBox);
+    }
+  }
+
+  function TouchEnd(_evt) {
+    dragSource.classList.remove("dragging");
+    dragSource = null;
+  }
+
+  function swapElements(source, target) {
+    let temp = source.innerHTML;
+    source.innerHTML = target.innerHTML;
+    target.innerHTML = temp;
   }
 });
 
