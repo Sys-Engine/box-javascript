@@ -1,7 +1,43 @@
 document.body.style.background = "#C6E7FF";
 // first function
+// document.addEventListener("DOMContentLoaded", function () {
+//   var columns = document.querySelectorAll("#box");
+//   var dragSource;
+
+//   columns.forEach(function (col) {
+//     col.setAttribute("draggable", true);
+//     col.addEventListener("dragstart", DragStart, false);
+//     col.addEventListener("dragover", DragOver, false);
+//     col.addEventListener("drop", handleDrop, false);
+//   });
+
+//   function DragStart(evt) {
+//     dragSource = this;
+//     console.log("drag is start",this.evt);
+//     evt.dataTransfer.setData("text/plain", this.innerHTML);
+//     evt.dataTransfer.effectAllowed = "move";
+//   }
+
+//   function DragOver(evt) {
+//     console.log("search for box",this.evt);
+//     evt.preventDefault();
+//     evt.dataTransfer.effectAllowed = "move";
+//   }
+
+//   function handleDrop(evt) {
+//     console.log("box is drop",this.evt);
+//     evt.preventDefault();
+
+//     evt.stopPropagation(); {
+//       dragSource.innerHTML = this.innerHTML;
+//       this.innerHTML = evt.dataTransfer.getData("text/plain");
+//       evt.dataTransfer.effectAllowed = "move";
+//     }
+//   }
+// });
+
 document.addEventListener("DOMContentLoaded", function () {
-  var columns = document.querySelectorAll("#box");
+  var columns = document.querySelectorAll("#box"); // Use class instead of ID
   var dragSource;
 
   columns.forEach(function (col) {
@@ -13,26 +49,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function DragStart(evt) {
     dragSource = this;
-    console.log("drag is start",this.evt);
-    evt.dataTransfer.setData("text/html", this.innerHTML);
+    evt.dataTransfer.setData("text/plain", this.innerHTML); // Change "text/html" to "text/plain"
+    evt.dataTransfer.effectAllowed = "move"; // Allow move effect
   }
 
   function DragOver(evt) {
-    console.log("search for box",this.evt);
-    evt.preventDefault();
+    evt.preventDefault(); // Allow drop
   }
 
   function handleDrop(evt) {
-    console.log("box is drop",this.evt);
     evt.preventDefault();
+    evt.stopPropagation(); // Prevent unwanted bubbling
 
-    evt.stopPropagation(); {
-      dragSource.innerHTML = this.innerHTML;
-      this.innerHTML = evt.dataTransfer.getData("text/html");
+    if (dragSource !== this) { // Avoid swapping with itself
+      let droppedData = evt.dataTransfer.getData("text/plain");
+      if (droppedData) {
+        dragSource.innerHTML = this.innerHTML;
+        this.innerHTML = droppedData;
+      }
     }
   }
 });
-
 
 // second function on clickfunction
 function handelClick()  {
