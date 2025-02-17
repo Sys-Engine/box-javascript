@@ -7,15 +7,12 @@
   <title>javascript</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
-
 <body>
-
   <div class=" h-full pt-20 flex justify-center items-center  ">
     <!-- inner -->
     <div  class="px-4 ">
+      <p id="time" class="flex justify-center items-center text-2xl mb-6 max-sm:text-xl " ></p>  
       <div
        id="boxes" class="overflow-hidden p-4 border-dashed border-2 border-[#155E95] bg-[ghostwhite] m-auto  cursor-pointer grid grid-cols-3  ">
         
@@ -59,18 +56,17 @@
         </div>
         <!--  end-->
       </div>
+      <div  class="flex" >
+        <button
+        id="countdown" class="bg-pink-300 flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight"
+        onclick="Click()">Start
+      </button>
       <button type="button"
        id="Click" class="bg-pink-300 flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight "
         onclick="handelClick()">Shuffle
       </button>
-     <div  class="flex" >
-      <button
-      id="countdown" class="bg-pink-300 flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight"
-      onclick="Click()">start
-    </button>
-    <button id="stop" class="bg-pink-300  flex m-auto mt-5 w-auto h-auto text-xl px-10 py-2 max-sm:px-7 rounded-xl font-medium hover:bg-slate-600 transition-all duration-300 hover:text-white -tracking-tight" onclick="ClearInterval()">Submit</button>
   </div>
-  <p id="time" class="flex justify-center items-center text-2xl mt-4 max-sm:text-xl " ></p>  
+ 
     </div>    
   </div>
   <script src="script.js"></script>

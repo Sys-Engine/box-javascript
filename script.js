@@ -36,6 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
         this.innerHTML = droppedData;
       }
     }
+const correctOrder = "123456789";
+    const currentOrder = Array.from(document.querySelectorAll('#box .box'))
+        .map(box => box.textContent)
+        .join('');
+    
+    if (currentOrder === correctOrder) {
+      alert("You win!");
+      location.reload(); 
+    }
   }
 
   function TouchStart(_evt) {
@@ -45,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function TouchMove(evt) {
     evt.preventDefault(); 
-
     let touch = evt.touches[0];
     let targetBox = document.elementFromPoint(touch.clientX, touch.clientY);
 
@@ -98,28 +106,15 @@ function Click() {
       }
 }
 function updateTimer() {
-    if (remainingTime > 0) {
-        remainingTime--;
-        document.getElementById("time").innerHTML = `${remainingTime} sec`;
-    } else {
-        clearInterval(countdownInterval);
-        alert("Time is up!");
-        location.reload(); 
-    }
-}
-//  if else ,win lose
-const btnStopElement = document.getElementById("time");
-const correctOrder = "123456789";
-function ClearInterval() {
-    const currentOrder = Array.from(document.querySelectorAll('#box .box'))
-        .map(box => box.textContent)
-        .join('');
-    
-    if (currentOrder === correctOrder) {
-      alert("You win!");
-    } else {
+  if (remainingTime > 10) {
+      remainingTime--;
+      document.getElementById("time").innerHTML = `00:${remainingTime < 10 ? "0" + remainingTime : remainingTime}`;
+  } else if (remainingTime <= 10 && remainingTime > 0) {
+      remainingTime--; 
+      document.getElementById("time").innerHTML = `00:${remainingTime < 10 ? "0" + remainingTime : remainingTime}`;
+  } else {
+      clearInterval(countdownInterval);
       alert("You Lose!");
-    }
-    location.reload(); 
-    return; 
+      location.reload(); 
+  }
 }
