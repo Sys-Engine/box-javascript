@@ -42,8 +42,10 @@ const correctOrder = "123456789";
         .join('');
     
     if (currentOrder === correctOrder) {
-      alert("You win!");
-      location.reload(); 
+     setTimeout(() => {
+        alert("You win!");
+        location.reload(); 
+      }, 500);
     }
   }
 
